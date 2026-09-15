@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tu Tiên Plugin v4.1.0 — 磨 Tôi Luyện</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif:wght@400;600;700&family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0d0f14; --paper:#17191d; --paper2:#1d2025;
+  --ember:#d4762e; --ember-dim:#8a5426;
+  --jade:#4a8f6b; --jade-dim:#2e5a45;
+  --gold:#c9a227; --gold-dim:#8a7020;
+  --rice:#e8e2d1; --ash:#948d7d; --ash-dim:#5c574c;
+  --line:rgba(232,226,209,0.09);
+  --r:3px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ink); color:var(--rice);
+  font-family:'Be Vietnam Pro',sans-serif; font-weight:300;
+  line-height:1.75; overflow-x:hidden;
+}
+body::before{
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background-image:
+    radial-gradient(ellipse 60% 40% at 20% 0%, rgba(212,118,46,0.05), transparent 60%),
+    radial-gradient(ellipse 50% 40% at 85% 30%, rgba(74,143,107,0.05), transparent 60%);
+}
+.paper-grain{
+  position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.4;
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(232,226,209,.006) 3px);
+}
+.wrap{max-width:920px; margin:0 auto; padding:0 1.75rem; position:relative; z-index:1}
+
+/* ═══════════ HERO ═══════════ */
+.hero{
+  min-height:78vh; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; text-align:center;
+  position:relative; padding:3rem 0;
+}
+.hero-glyph{
+  font-family:'Ma Shan Zheng',cursive;
+  font-size:min(42vw,420px); line-height:1;
+  color:transparent;
+  -webkit-text-stroke:1px rgba(232,226,209,0.10);
+  position:absolute; top:50%; left:50%;
+  transform:translate(-50%,-52%);
+  z-index:0; user-select:none; pointer-events:none;
+  filter:blur(.3px);
+}
+.hero-inner{position:relative; z-index:1}
+.hero-eyebrow{
+  font-family:'JetBrains Mono',monospace; font-size:.72rem;
+  letter-spacing:.32em; text-transform:uppercase; color:var(--ash);
+  margin-bottom:1.4rem;
+}
+.hero-eyebrow span{color:var(--ember)}
+.hero-title{
+  font-family:'Noto Serif',serif; font-weight:700;
+  font-size:clamp(2.4rem,7vw,4.4rem); letter-spacing:-.01em;
+  color:var(--rice); line-height:1.08; margin-bottom:.9rem;
+}
+.hero-title em{
+  font-style:normal; color:var(--gold);
+}
+.hero-sub{
+  font-size:1.05rem; color:var(--ash); max-width:520px;
+  margin:0 auto 2.2rem; line-height:1.85;
+}
+.hero-version{
+  display:inline-flex; align-items:center; gap:.6rem;
+  font-family:'JetBrains Mono',monospace; font-size:.82rem;
+  color:var(--ink); background:var(--gold);
+  padding:.5rem 1.3rem; border-radius:99px; font-weight:600;
+  letter-spacing:.04em;
+}
+
+.ink-divider{
+  width:100%; max-width:340px; height:14px; margin:0 auto;
+  display:block;
+}
+.ink-divider path{
+  stroke:var(--ember-dim); stroke-width:1.6; fill:none;
+  stroke-dasharray:400; stroke-dashoffset:400;
+  animation:draw 1.6s ease forwards .3s;
+}
+@keyframes draw{to{stroke-dashoffset:0}}
+
+/* ═══════════ SECTION SCAFFOLD ═══════════ */
+section{padding:5rem 0}
+.sec-head{margin-bottom:2.6rem; max-width:600px}
+.sec-eyebrow{
+  font-family:'JetBrains Mono',monospace; font-size:.7rem;
+  letter-spacing:.28em; text-transform:uppercase; color:var(--ash-dim);
+  margin-bottom:.8rem; display:flex; align-items:center; gap:.6rem;
+}
+.sec-eyebrow::before{content:'—'; color:var(--ember)}
+.sec-title{
+  font-family:'Noto Serif',serif; font-weight:600;
+  font-size:clamp(1.6rem,3.4vw,2.3rem); color:var(--rice);
+  margin-bottom:.7rem; line-height:1.25;
+}
+.sec-desc{color:var(--ash); font-size:.98rem; max-width:560px}
+
+/* ═══════════ TRIAL CARDS (3 new features) ═══════════ */
+.trials{display:flex; flex-direction:column; gap:1px; background:var(--line); border-radius:var(--r); overflow:hidden}
+.trial{
+  background:var(--paper); padding:2.1rem 2rem;
+  display:grid; grid-template-columns:auto 1fr; gap:1.6rem;
+  transition:background .25s;
+  position:relative;
+}
+.trial:hover{background:var(--paper2)}
+.trial::before{
+  content:''; position:absolute; left:0; top:0; bottom:0; width:2px;
+  background:var(--t-accent, var(--ember)); opacity:0; transition:opacity .25s;
+}
+.trial:hover::before{opacity:1}
+.trial-mark{
+  font-family:'Ma Shan Zheng',cursive; font-size:2.6rem;
+  color:var(--t-accent, var(--ember)); line-height:1; opacity:.85;
+  width:56px; text-align:center; padding-top:.2rem;
+}
+.trial-body h3{
+  font-family:'Noto Serif',serif; font-size:1.2rem; font-weight:600;
+  color:var(--rice); margin-bottom:.5rem;
+}
+.trial-body h3 .cmd{
+  font-family:'JetBrains Mono',monospace; font-size:.72rem; font-weight:400;
+  color:var(--t-accent,var(--ember)); background:rgba(255,255,255,.04);
+  padding:.2rem .55rem; border-radius:3px; margin-left:.6rem; vertical-align:middle;
+}
+.trial-body p{color:var(--ash); font-size:.9rem; margin-bottom:.9rem}
+.trial-facts{display:flex; flex-wrap:wrap; gap:.5rem}
+.fact{
+  font-family:'JetBrains Mono',monospace; font-size:.72rem;
+  color:var(--rice); background:rgba(255,255,255,.035);
+  border:1px solid var(--line); padding:.28rem .65rem; border-radius:3px;
+}
+.fact b{color:var(--t-accent,var(--ember)); font-weight:600}
+
+/* ═══════════ REPAIR LIST (bug fixes) ═══════════ */
+.repairs{display:flex; flex-direction:column}
+.repair{
+  display:grid; grid-template-columns:1.1fr 1.6fr; gap:2rem;
+  padding:1.7rem 0; border-top:1px solid var(--line);
+}
+.repair:last-child{border-bottom:1px solid var(--line)}
+.repair-what{
+  font-family:'Noto Serif',serif; font-size:1.05rem; color:var(--rice); font-weight:600;
+}
+.repair-what .tag{
+  display:block; font-family:'JetBrains Mono',monospace; font-size:.68rem;
+  color:var(--jade); letter-spacing:.1em; text-transform:uppercase; margin-top:.4rem; font-weight:400;
+}
+.repair-detail p{color:var(--ash); font-size:.89rem; margin-bottom:.5rem}
+.repair-detail code{
+  font-family:'JetBrains Mono',monospace; font-size:.8rem;
+  background:rgba(74,143,107,.08); color:var(--jade); padding:.1rem .4rem; border-radius:3px;
+}
+@media(max-width:640px){ .repair{grid-template-columns:1fr; gap:.6rem} }
+
+/* ═══════════ TECH TABLE ═══════════ */
+.tech-table{width:100%; border-collapse:collapse; font-size:.85rem}
+.tech-table th{
+  text-align:left; font-family:'JetBrains Mono',monospace; font-size:.68rem;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--ash-dim);
+  padding:.7rem .3rem; border-bottom:1px solid var(--line); font-weight:500;
+}
+.tech-table td{padding:.85rem .3rem; border-bottom:1px solid var(--line); vertical-align:top; color:var(--ash)}
+.tech-table tr:last-child td{border-bottom:none}
+.tech-table .cmd{font-family:'JetBrains Mono',monospace; color:var(--gold); font-size:.82rem; white-space:nowrap}
+
+/* ═══════════ FOOTER ═══════════ */
+footer{
+  border-top:1px solid var(--line); padding:2.6rem 0 3.4rem;
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;
+}
+footer .fl{font-family:'JetBrains Mono',monospace; font-size:.75rem; color:var(--ash-dim)}
+footer .fl b{color:var(--rice)}
+
+@media(max-width:600px){
+  .trial{grid-template-columns:1fr; gap:.8rem}
+  .trial-mark{width:auto}
+}
+</style>
+</head>
+<body>
+
+<div class="paper-grain"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glyph" aria-hidden="true">磨</div>
+  <div class="wrap hero-inner">
+    <div class="hero-eyebrow">Nhật ký cập nhật <span>·</span> Tu Tiên Plugin</div>
+    <h1 class="hero-title">Tôi Luyện Đạo Tâm<br><em>v4.1.0</em></h1>
+    <p class="hero-sub">
+      Bản cập nhật này không mở thêm cảnh giới mới — mà tôi luyện lại những
+      gì đã có: sửa pháp bảo câm lặng, dựng lại tình Sư Đồ còn dang dở,
+      và đặt thêm cám dỗ lẫn tạp niệm để thử thách đạo tâm người tu luyện.
+    </p>
+    <div class="hero-version">● BẢN PHÁT HÀNH v4.1.0</div>
+  </div>
+</section>
+
+<div class="wrap">
+  <svg class="ink-divider" viewBox="0 0 340 14"><path d="M4 7 C 60 2, 100 12, 170 7 S 280 2, 336 7"/></svg>
+</div>
+
+<!-- 3 THU THACH MOI -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Ba Thử Thách Mới</div>
+      <h2 class="sec-title">Đạo tâm cần được mài giũa,<br>không chỉ được ban tặng</h2>
+      <p class="sec-desc">Ba cơ chế hoàn toàn mới, mỗi cái đặt người chơi trước một phép thử khác nhau — cám dỗ, phân tâm, và trách nhiệm dẫn dắt.</p>
+    </div>
+
+    <div class="trials">
+      <div class="trial" style="--t-accent:var(--ember)">
+        <div class="trial-mark">賭</div>
+        <div class="trial-body">
+          <h3>Tài Xỉu — Cám Dỗ Của Vận May <span class="cmd">/taixiu</span></h3>
+          <p>Tung 3 xúc xắc, đặt cược Linh Thạch vào Tài (11–17) hay Xỉu (4–10). Ba mặt trùng nhau — Bão — nhà cái luôn thắng, đúng luật chơi cổ truyền.</p>
+          <div class="trial-facts">
+            <span class="fact">Ăn <b>1:1</b></span>
+            <span class="fact">Cooldown <b>3s</b></span>
+            <span class="fact">Cược tối thiểu <b>10 LT</b></span>
+            <span class="fact">Dùng <b>Túi Linh Thạch Vô Hạn</b></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="trial" style="--t-accent:var(--jade)">
+        <div class="trial-mark">魔</div>
+        <div class="trial-body">
+          <h3>Tạp Niệm Xâm Nhập <span class="cmd">tự động khi /thiendinh</span></h3>
+          <p>Sau 60–90 giây tĩnh tọa, một tạp niệm bất ngờ hiện lên dưới dạng câu hỏi 6 giây. Giữ vững đạo tâm được thưởng; để tâm trí dao động sẽ phải trả giá.</p>
+          <div class="trial-facts">
+            <span class="fact">Đúng: <b>+1% Max LK</b> (tối thiểu 100)</span>
+            <span class="fact">Sai: <b>-0.5% LK, -12% HP, Đói 20s</b></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="trial" style="--t-accent:var(--gold)">
+        <div class="trial-mark">師</div>
+        <div class="trial-body">
+          <h3>Sư Đồ — Truyền Thừa Đạo Pháp <span class="cmd">/suphu · /dedoan</span></h3>
+          <p>Người tu vi cao hơn tối thiểu 3 bậc có thể nhận đệ tử (tối đa 5 người). Sư Phụ đang online sẽ nhận 10% Linh Khí mỗi lần đệ tử tĩnh tọa — dẫn dắt nhau cùng tiến bộ.</p>
+          <div class="trial-facts">
+            <span class="fact">Tối đa <b>5 đệ tử</b>/Sư Phụ</span>
+            <span class="fact">Cách biệt tối thiểu <b>3 cảnh giới</b></span>
+            <span class="fact">Chia sẻ <b>10% LK</b> lúc thiền định</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <svg class="ink-divider" viewBox="0 0 340 14"><path d="M4 7 C 60 12, 100 2, 170 7 S 280 12, 336 7"/></svg>
+</div>
+
+<!-- TU BO DAO CU (bug fixes) -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Tu Bổ Đạo Cụ</div>
+      <h2 class="sec-title">Những pháp bảo câm lặng,<br>nay đã lên tiếng</h2>
+      <p class="sec-desc">Ba lỗi âm thầm tồn tại từ trước — không gây crash, chỉ lặng lẽ khiến vật phẩm và cơ chế mất tác dụng. Đợt này tu bổ toàn bộ.</p>
+    </div>
+
+    <div class="repairs">
+      <div class="repair">
+        <div class="repair-what">Rèn Đúc bị câm<span class="tag">/renduc</span></div>
+        <div class="repair-detail">
+          <p>Lệnh từng bị gán nhầm chung xử lý với Luyện Đan — bấm <code>/renduc</code> chỉ mở nhầm GUI luyện đan, không hề nâng cấp Pháp Bảo.</p>
+          <p>→ Tách hẳn thành module riêng, đọc đúng giá & tỉ lệ từ config, hỗ trợ xem trước bằng <code>/renduc info</code>.</p>
+        </div>
+      </div>
+
+      <div class="repair">
+        <div class="repair-what">26 Pháp Bảo vô tri<span class="tag">phabao/*</span></div>
+        <div class="repair-detail">
+          <p>Gần một phần ba số Pháp Bảo trong túi đồ — kể cả toàn bộ 5 món Bản Mệnh — khi dùng chỉ hiện "Kỹ năng chưa triển khai".</p>
+          <p>→ Viết đủ hiệu ứng cho cả 26 món. Bản Mệnh Kiếm/Giáp/Châu được nối thẳng vào công thức tính <code>ATK</code>, <code>DEF</code>, <code>tốc độ LK</code> thật, không chỉ hiện thông báo suông.</p>
+        </div>
+      </div>
+
+      <div class="repair">
+        <div class="repair-what">Linh Khí tràn bờ<span class="tag">addLinhKhi()</span></div>
+        <div class="repair-detail">
+          <p>Ở cảnh giới cao, tĩnh tọa lâu khiến Linh Khí cộng dồn vượt quá giới hạn không điểm dừng — khiến thanh trạng thái tính toán tràn số và ngừng cập nhật vĩnh viễn.</p>
+          <p>→ Đặt trần cứng tại <code>maxLinhKhi</code>, cùng lớp phòng vệ thứ hai chống crash nếu có giá trị bất thường phát sinh về sau.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <svg class="ink-divider" viewBox="0 0 340 14"><path d="M4 7 C 60 2, 100 12, 170 7 S 280 2, 336 7"/></svg>
+</div>
+
+<!-- LUCKPERMS + TECH TABLE -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Tích Hợp Máy Chủ</div>
+      <h2 class="sec-title">Đồng bộ với LuckPerms</h2>
+      <p class="sec-desc">Không thêm lệnh mới cho người chơi — chạy ngầm mỗi khi đột phá hoặc đăng nhập.</p>
+    </div>
+
+    <table class="tech-table">
+      <thead><tr><th>Cơ chế</th><th>Hoạt động</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="cmd">tt_realm_&lt;giới&gt;</td>
+          <td>Tự động gán/gỡ group LuckPerms khớp Giới hiện tại mỗi lần đột phá qua Giới mới. Admin tạo group tương ứng (<code style="color:var(--gold)">/lp creategroup tt_realm_tien_gioi</code>) để gán quyền riêng.</td>
+        </tr>
+        <tr>
+          <td class="cmd">Prefix tự động</td>
+          <td>Set prefix LuckPerms khớp cảnh giới hiện tại (priority 100) — mọi plugin đọc <code style="color:var(--gold)">%luckperms_prefix%</code> hiển thị đúng ngay không cần cấu hình tay.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="sec-head" style="margin-top:3.4rem">
+      <div class="sec-eyebrow">Toàn Bộ Lệnh Mới</div>
+      <h2 class="sec-title">Tra cứu nhanh</h2>
+    </div>
+    <table class="tech-table">
+      <thead><tr><th>Lệnh</th><th>Chức năng</th></tr></thead>
+      <tbody>
+        <tr><td class="cmd">/taixiu &lt;tai|xiu&gt; &lt;tiền&gt;</td><td>Đặt cược Tài Xỉu, hỗ trợ <code>all</code> để cược tất tay</td></tr>
+        <tr><td class="cmd">/suphu &lt;player&gt;</td><td>Nhận một người chơi làm đệ tử</td></tr>
+        <tr><td class="cmd">/dedoan [roi|kick]</td><td>Xem thông tin Sư Đồ, tự rời hoặc đuổi đệ tử</td></tr>
+        <tr><td class="cmd">/uyap [on|off]</td><td>Bật/tắt hiệu ứng Uy Áp cảnh giới lên bản thân</td></tr>
+        <tr><td class="cmd">/renduc [info]</td><td>Rèn đúc nâng tier Pháp Bảo, thêm chế độ xem trước</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="display:flex; justify-content:space-between; width:100%; flex-wrap:wrap; gap:1rem">
+    <div class="fl">Tu Tiên Plugin <b>v4.1.0</b> · Paper 1.21.1+ · Java 21+</div>
+    <div class="fl">FREE & PREMIUM build đồng bộ đầy đủ</div>
+  </div>
+</footer>
+
+</body>
+</html>
